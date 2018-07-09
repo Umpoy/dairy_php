@@ -1,0 +1,41 @@
+body {
+    background: linear-gradient(to right,rgb(45, 129, 173), rgb(145, 215, 245)) no-repeat center center fixed;
+	background-size: cover;  
+}
+
+.container {
+    width: 50vw;
+    color: white;
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+input {
+    background-color: transparent !important;
+    border: 1px solid white;
+    color: white !important;
+}
+
+.btn {
+    border: 1px solid white;
+}
+
+/* do not group these rules */
+*::-webkit-input-placeholder {
+    color: white !important;
+}
+*:-moz-placeholder {
+    /* FF 4-18 */
+    color: white !important;
+}
+*::-moz-placeholder {
+    /* FF 19+ */
+    color: white !important;
+}
+*:-ms-input-placeholder {
+    /* IE 10+ */
+    color: white !important;
+}

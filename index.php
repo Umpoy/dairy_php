@@ -9,14 +9,14 @@ if(array_key_exists("logout", $_GET)){ // destroys session when logged out
     header("Location: loggedinpage.php");
 }
 if(array_key_exists("submit", $_POST)){
-    $link = mysqli_connect("localhost", "root", "root", "dairy"); // connects to phpmyadmin
+    $link = mysqli_connect("localhost", "root", "root", "dairy"); // connects to phpmyadmin also not the real info :)
     if (mysqli_connect_error()) {
         die ("Database Connection Error");
     }
-    if (!$_POST['email']) { // if email is not input class="form-control"ed
+    if (!$_POST['email']) { // if email is not inputed
         $error .= "An email address is required<br>";
     } 
-    if (!$_POST['password']) { // if password is not input class="form-control"ed
+    if (!$_POST['password']) { // if password is not inputed 
         $error .= "A password is required<br>";
     } 
     if ($error != "") { // if email or password is not are not filled in
@@ -72,7 +72,7 @@ if(array_key_exists("submit", $_POST)){
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="assets/css/main.css">
         <title>Hello, world!</title>
     </head>
     <body>
@@ -87,15 +87,15 @@ if(array_key_exists("submit", $_POST)){
                 <fieldset class="form-group">
                     <input class="form-control" type="password" name="password" placeholder="Password">
                 </fieldset>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="stayLoggedIn" value=1>
-                            Stay logged in
-                        </label>
-                    </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="stayLoggedIn" value=1>
+                        Stay logged in
+                    </label>
+                </div>
                 <fieldset class="form-group">
                     <input class="form-control" type="hidden" name="signUp" value="1">   
-                    <input class="btn btn-success" type="submit" name="submit" value="Sign Up!">
+                    <input class="btn" type="submit" name="submit" value="Sign Up!">
                 </fieldset>
             </form>
 
@@ -108,15 +108,13 @@ if(array_key_exists("submit", $_POST)){
                 </fieldset>
                 <div class="checkbox">
                     <label>
-                        <input class="form-control" type="checkbox" name="stayLoggedIn" value=1>
+                        <input type="checkbox" name="stayLoggedIn" value=1>
                         Stay logged in
                     </label>
                 </div>
-                
-        
                 <fieldset class="form-group">
                 <input class="form-control" type="hidden" name="signUp" value="0">
-                <input class="btn btn-success" type="submit" name="submit" value="Log In!">
+                <input class="btn" type="submit" name="submit" value="Log In!">
                 </fieldset>
             </form>
         </div>
