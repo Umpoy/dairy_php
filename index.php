@@ -35,7 +35,7 @@ if(array_key_exists("submit", $_POST)){
                     $query = "UPDATE `users` SET password = '".md5(md5(mysqli_insert_id($link)).$_POST['password'])."' WHERE id = ".mysqli_insert_id($link)." LIMIT 1";
                     mysqli_query($link, $query);
                     $_SESSION['id'] = mysqli_insert_id($link);       
-                    if ($_POST['stayLoggedIn'] == '1') {
+                    if (array_key_exists("stayLoggedIn", $_POST)) {
                         setcookie("id", mysqli_insert_id($link), time() + 60*60*24*365);
                     } 
                     header("Location: loggedinpage.php");
@@ -49,7 +49,7 @@ if(array_key_exists("submit", $_POST)){
                     $hashedPassword = md5(md5($row['id']).$_POST['password']);                  
                     if ($hashedPassword == $row['password']) {                       
                         $_SESSION['id'] = $row['id'];                        
-                        if ($_POST['stayLoggedIn'] == '1') {
+                        if (array_key_exists("stayLoggedIn", $_POST)) {
                             setcookie("id", $row['id'], time() + 60*60*24*365);
                         } 
                         header("Location: loggedinpage.php");                            
