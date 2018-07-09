@@ -1,11 +1,15 @@
 body {
-    background: linear-gradient(to right,rgb(45, 129, 173), rgb(145, 215, 245)) no-repeat center center fixed;
+    background: linear-gradient(to right,rgb(12, 150, 44), rgb(12, 172, 235)) no-repeat center center fixed;
 	background-size: cover;  
 }
 
-.container {
+.container{
     width: 50vw;
     color: white;
+}
+
+.container > .hero {
+    width: inherit;
     position: absolute;
     top: 40%;
     left: 50%;
@@ -15,12 +19,12 @@ body {
 
 input {
     background-color: transparent !important;
-    border: 1px solid white;
+    border: 2px solid white !important;
     color: white !important;
 }
 
 .btn {
-    border: 1px solid white;
+    border: 2px solid white;
 }
 
 /* do not group these rules */
@@ -39,3 +43,12 @@ input {
     /* IE 10+ */
     color: white !important;
 }
+
+#logInForm {
+    display: none;
+}
+
+textarea{
+    width: 100%;
+}
+

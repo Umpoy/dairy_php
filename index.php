@@ -9,10 +9,7 @@ if(array_key_exists("logout", $_GET)){ // destroys session when logged out
     header("Location: loggedinpage.php");
 }
 if(array_key_exists("submit", $_POST)){
-    $link = mysqli_connect("localhost", "root", "root", "dairy"); // connects to phpmyadmin also not the real info :)
-    if (mysqli_connect_error()) {
-        die ("Database Connection Error");
-    }
+    include("connect.php");
     if (!$_POST['email']) { // if email is not inputed
         $error .= "An email address is required<br>";
     } 
@@ -77,46 +74,50 @@ if(array_key_exists("submit", $_POST)){
     </head>
     <body>
         <div class="container">
-            <h1>Secret Diary</h1>
-            <div id="error"><?php echo $error; ?></div>
-    
-            <form method="post">
-                <fieldset class="form-group">
-                    <input class="form-control" type="email" name="email" placeholder="Your Email">
-                </fieldset>
-                <fieldset class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
-                </fieldset>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="stayLoggedIn" value=1>
-                        Stay logged in
-                    </label>
-                </div>
-                <fieldset class="form-group">
-                    <input class="form-control" type="hidden" name="signUp" value="1">   
-                    <input class="btn" type="submit" name="submit" value="Sign Up!">
-                </fieldset>
-            </form>
+            <div class="hero">
+                <h1>Secret Diary</h1>
+                <div id="error"><?php echo $error; ?></div>
+        
+                <form method="post" id="signUpForm">
+                    <fieldset class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Your Email">
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder="Password">
+                    </fieldset>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="stayLoggedIn" value=1>
+                            Stay logged in
+                        </label>
+                    </div>
+                    <fieldset class="form-group">
+                        <input class="form-control" type="hidden" name="signUp" value="1">   
+                        <input class="btn" type="submit" name="submit" value="Sign Up!">
+                    </fieldset>
+                    <p><a class="toggleForms">Log In</a></p>
+                </form>
 
-            <form method="post">
-                <fieldset class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Your Email">
-                </fieldset>
-                <fieldset class="form-group">
-                <input class="form-control" type="password" name="password" placeholder="Password">
-                </fieldset>
-                <div class="checkbox">
-                    <label>
-                        <input type="checkbox" name="stayLoggedIn" value=1>
-                        Stay logged in
-                    </label>
-                </div>
-                <fieldset class="form-group">
-                <input class="form-control" type="hidden" name="signUp" value="0">
-                <input class="btn" type="submit" name="submit" value="Log In!">
-                </fieldset>
-            </form>
+                <form method="post" id="logInForm">
+                    <fieldset class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="Your Email">
+                    </fieldset>
+                    <fieldset class="form-group">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    </fieldset>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="stayLoggedIn" value=1>
+                            Stay logged in
+                        </label>
+                    </div>
+                    <fieldset class="form-group">
+                    <input class="form-control" type="hidden" name="signUp" value="0">
+                    <input class="btn" type="submit" name="submit" value="Log In!">
+                    </fieldset>
+                    <p><a class="toggleForms">Sign In</a></p>
+                </form>
+            </div>
         </div>
 
         <!-- Optional JavaScript -->
@@ -124,6 +125,7 @@ if(array_key_exists("submit", $_POST)){
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="assets/js/main.js"></script>
     </body>
 </html>
 
