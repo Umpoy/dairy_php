@@ -1,4 +1,5 @@
 <?php
+    session_start();
     if(array_key_exists("submit", $_POST)){
         $link = mysqli_connect("localhost", "root", "root", "dairy"); // connects to phpmyadmin
         $error = "";
@@ -22,8 +23,11 @@
                 } else {
                     $query = "UPDATE `users` SET password = '".md5(md5(mysqli_insert_id($link)).$_POST['password'])."' WHERE id = ".mysqli_insert_id($link)." LIMIT 1";
                     mysqli_query($link, $query);
-                    
-                    echo "Sign up successful";
+                    $_SESSION['id'] = mysqli_insert_id($link);
+                    if ($_POST['stayLoggedIn'] == '1') {
+                        setcookie("id", mysqli_insert_id($link), time() + 60*60*24*365); // seconds * minutes * hours * days
+                    } 
+                    header("Location: loggedinpage.php");
                 }
             }
         }
@@ -35,6 +39,6 @@
 <form method="post">
     <input type="email" name="email" placeholder="Your Email">
     <input type="password" name="password" placeholder="Password">
-    <input type="checkbox" name="stayLoggedIn" value=1>
+    <input type="checkbox" name="stayLoggedIn" value="1">
     <input type="submit" name="submit" value="Sign Up!">
 </form>
