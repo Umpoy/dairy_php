@@ -1,8 +1,15 @@
 <?php
     session_start();
+    $error = "";
+    if(array_key_exists("logout", $_GET)){ // destroys session when logged out
+        unset($_SESSION);
+        setcookie("id", "". time() - 60*60); // seconds * minutes
+        $_COOKIE["id"] = "";
+    } else if (array_key_exists("id", $_SESSION) OR array_key_exists("id", $_COOKIE)) { // if logged in redirects to log in page
+        header("Location: loggedinpage.php");
+    }
     if(array_key_exists("submit", $_POST)){
         $link = mysqli_connect("localhost", "root", "root", "dairy"); // connects to phpmyadmin
-        $error = "";
         if(!$_POST['email']){ // if email is not inputed
             $error .= "An email address is required";
         }
