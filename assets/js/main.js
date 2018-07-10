@@ -1,15 +1,19 @@
-$(".toggleForms").on("click", function () {
-    $("#signUpForm").toggle();
-    $("#logInForm").toggle();
-});
+$("document").ready(initialize);
 
-$("#diary").bind("input propertychange", function () {
-    $.ajax({
-        method: "POST",
-        url: "updateDatabase.php",
-        data: { content: $("#diary").val() }
-    })
-        .done(function (msg) {
-            alert("Data Saved: " + msg);
+function initialize() {
+    $(".toggleForms").on("click", function () {
+        $("#signUpForm").toggle();
+        $("#logInForm").toggle();
+    });
+
+    $('#diary').bind('input propertychange', function () {
+        $.ajax({
+            method: "POST",
+            url: "./updatedatabase.php",
+            data: { content: $("#diary").val() },
+            success: function (msg) {
+                alert("Data Saved: " + msg);
+            }
         });
-})
+    });
+}
