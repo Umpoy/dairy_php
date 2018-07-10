@@ -9,11 +9,8 @@ function initialize() {
     $('#diary').bind('input propertychange', function () {
         $.ajax({
             method: "POST",
-            url: "./updatedatabase.php",
-            data: { content: $("#diary").val() },
-            success: function (msg) {
-                alert("Data Saved: " + msg);
-            }
+            url: "updatedatabase.php",
+            data: { content: $("#diary").val() }
         });
     });
 }
