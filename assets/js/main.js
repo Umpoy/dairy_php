@@ -3,11 +3,11 @@ $(".toggleForms").on("click", function () {
     $("#logInForm").toggle();
 });
 
-$("#dairy").bind("input propertychange", function () {
+$("#diary").bind("input propertychange", function () {
     $.ajax({
         method: "POST",
         url: "updateDatabase.php",
-        data: { content: $("#dairy").val() }
+        data: { content: $("#diary").val() }
     })
         .done(function (msg) {
             alert("Data Saved: " + msg);

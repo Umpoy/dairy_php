@@ -1,11 +1,12 @@
 <?php
     session_start();
-    include("connect.php");
     if(array_key_exists("id", $_COOKIE)){
         $_SESSION['id'] = $_COOKIE['id'];
     }
     if(array_key_exists("id", $_SESSION)){
         echo "Logged In! <a href='index.php?logout=1'>Log out</a>";
+        include("connect.php");
+        $query = "SELECT diary "
     } else {
         header("Location: index.php");
     }
@@ -25,7 +26,7 @@
     </head>
     <body>
         <div class="container">
-                <textarea id="dairy"></textarea>
+                <textarea id="diary"></textarea>
         </div>
 
         <!-- Optional JavaScript -->
