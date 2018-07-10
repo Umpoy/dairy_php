@@ -15,7 +15,7 @@ if(array_key_exists("submit", $_POST)){
     } 
     if (!$_POST['password']) { // if password is not inputed 
         $error .= "A password is required<br>";
-    } 
+    }
     if ($error != "") { // if email or password is not are not filled in
         $error = "<p>There were error(s) in your form:</p>".$error;
     } else { // email and password was entered
@@ -25,7 +25,7 @@ if(array_key_exists("submit", $_POST)){
             if (mysqli_num_rows($result) > 0) {
                 $error = "That email address is taken.";
             } else {
-                $query = "INSERT INTO `users` (`email`, `password`) VALUES ('".mysqli_real_escape_string($link, $_POST['email'])."', '".mysqli_real_escape_string($link, $_POST['password'])."')";
+                $query = "INSERT INTO `users` (`email`, `password`, `username`) VALUES ('".mysqli_real_escape_string($link, $_POST['email'])."', '".mysqli_real_escape_string($link, $_POST['password'])."', '".mysqli_real_escape_string($link, $_POST['username'])."')";
                 if (!mysqli_query($link, $query)) {
                     $error = "<p>Could not sign you up - please try again later.</p>";
                 } else {
@@ -46,7 +46,7 @@ if(array_key_exists("submit", $_POST)){
                     $hashedPassword = md5(md5($row['id']).$_POST['password']);                  
                     if ($hashedPassword == $row['password']) {                       
                         $_SESSION['id'] = $row['id'];                        
-                        if (array_key_exists("stayLoggedIn", $_POST)) {
+                        if (isset($_POST['stayLoggedIn']) AND $_POST['stayLoggedIn'] == '1') {
                             setcookie("id", $row['id'], time() + 60*60*24*365);
                         } 
                         header("Location: loggedinpage.php");                            
@@ -82,45 +82,46 @@ if(array_key_exists("submit", $_POST)){
             <div class="hero">
                 <h1 class="animated fadeInDown">Secret Diary</h1>
                 <div id="error"><?php echo $error; ?></div>
-        
-                <form method="post" id="signUpForm">
-                    <fieldset class="form-group">
-                        <input class="form-control" type="email" name="email" placeholder="Your Email">
-                    </fieldset>
-                    <fieldset class="form-group">
-                        <input class="form-control" type="password" name="password" placeholder="Password">
-                    </fieldset>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" name="stayLoggedIn" value=1>
-                            Stay logged in
-                        </label>
-                    </div>
-                    <fieldset class="form-group">
-                        <input class="form-control" type="hidden" name="signUp" value="1">   
-                        <input class="btn" type="submit" name="submit" value="Sign Up!">
-                    </fieldset>
-                    <p><a class="toggleForms">Log In</a></p>
-                </form>
 
                 <form method="post" id="logInForm">
                     <fieldset class="form-group">
-                    <input class="form-control" type="email" name="email" placeholder="Your Email">
+                    <input class="form-control" type="email" name="email" placeholder="Your Email" required>
                     </fieldset>
                     <fieldset class="form-group">
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="form-control" type="password" name="password" placeholder="Password" required>
                     </fieldset>
                     <div class="checkbox">
                         <label>
-                            <input type="checkbox" name="stayLoggedIn" value=1>
-                            Stay logged in
+                            <input type="checkbox" type="hidden" name="stayLoggedIn" value=1 checked>
                         </label>
                     </div>
                     <fieldset class="form-group">
                     <input class="form-control" type="hidden" name="signUp" value="0">
                     <input class="btn" type="submit" name="submit" value="Log In!">
                     </fieldset>
-                    <p><a class="toggleForms">Sign In</a></p>
+                    <p>New User? <a class="toggleForms btn">Sign Up!</a></p>
+                </form>
+
+                <form method="post" id="signUpForm">
+                    <fieldset class="form-group">
+                        <input class="form-control" type="email" name="email" placeholder="Your Email" required>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input class="form-control" type="password" name="password" placeholder="Password" required>
+                    </fieldset>
+                    <fieldset class="form-group">
+                        <input class="form-control" type="name" name="username" placeholder="User Name (This is the name we will greet you with)" required>
+                    </fieldset>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" name="stayLoggedIn" value=1 checked>
+                        </label>
+                    </div>
+                    <fieldset class="form-group">
+                        <input class="form-control" type="hidden" name="signUp" value="1">   
+                        <input class="btn" type="submit" name="submit" value="Sign Up!">
+                    </fieldset>
+                    <p>Already Signed Up? <a class="toggleForms btn">Log In</a></p>
                 </form>
             </div>
         </div>

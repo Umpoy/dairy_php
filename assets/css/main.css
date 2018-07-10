@@ -44,7 +44,7 @@ input {
     color: white !important;
 }
 
-#logInForm {
+#signUpForm {
     display: none;
 }
 
@@ -53,3 +53,6 @@ textarea{
     height: 15vh;
 }
 
+.checkbox {
+    display: none;
+}
