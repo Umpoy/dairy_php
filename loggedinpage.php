@@ -3,24 +3,36 @@
     $current_date = gmDate("Y-m-d"); 
     $diaryContent = "";
     $message = "";
+    $user_id = "";
     if(array_key_exists("id", $_COOKIE)){
         $_SESSION['id'] = $_COOKIE['id'];
     }
-    if(array_key_exists("id", $_SESSION)){
+    if(array_key_exists("id", $_SESSION)){ // used to render stuff to DOM
         $logout = "<a href='index.php?logout=1'>Log out</a>";
         include("connect.php");
         $query = "SELECT username FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
         $row = mysqli_fetch_array(mysqli_query($link, $query));
         $usernameContent = $row['username'];
+
+        $query = "SELECT id FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
+        $row = mysqli_fetch_array(mysqli_query($link, $query));
+        $user_id = $row['id'];
+
+        // $sql = "SELECT `post` FROM `post` WHERE user_id = $user_id";
+        // $result = $link->query($sql);
+        // if($result->num_rows > 0){
+        //     while($row = $result->fetch_assoc()){
+        //         $render = "<div>".$row['post']."</div>";
+        //     }
+        // }
+        // $row = mysqli_fetch_array(mysqli_query($link, $sql));
+        // print_r($row);
     } else {
         header("Location: index.php");
     }
     if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['diaryentry'] != ""){
         if(!empty($_POST["diaryentry"])){ // happens when text is not empty
             $message .= "text sent";
-            $query = "SELECT id FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
-            $row = mysqli_fetch_array(mysqli_query($link, $query));
-            $user_id = $row['id'];
             $query = "INSERT INTO `post`(`user_id`, `post`, `date`) VALUES ('".mysqli_real_escape_string($link, $user_id)."', '".mysqli_real_escape_string($link, $_POST['diaryentry'])."', '".mysqli_real_escape_string($link, $current_date)."')";
             mysqli_query($link, $query);
         } else {
@@ -66,6 +78,15 @@
                 <input type="submit" name="submit" value="Enter Log">
                 <div> <?php echo $message ?> </div>
                 </form>
+                <?php 
+                $sql = "SELECT `post` FROM `post` WHERE user_id = $user_id";
+                $result = $link->query($sql);
+                if($result->num_rows > 0){
+                    while($row = $result->fetch_assoc()){
+                        echo "<div>".$row['post']."</div>";
+                    }
+                }
+                ?>
         </div>
 
         <!-- Optional JavaScript -->
