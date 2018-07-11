@@ -1,6 +1,8 @@
 <?php
     session_start();
+    $current_date = gmDate("Y-m-d"); 
     $diaryContent = "";
+    $message = "";
     if(array_key_exists("id", $_COOKIE)){
         $_SESSION['id'] = $_COOKIE['id'];
     }
@@ -12,6 +14,18 @@
         $usernameContent = $row['username'];
     } else {
         header("Location: index.php");
+    }
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST['diaryentry'] != ""){
+        if(!empty($_POST["diaryentry"])){ // happens when text is not empty
+            $message .= "text sent";
+            $query = "SELECT id FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
+            $row = mysqli_fetch_array(mysqli_query($link, $query));
+            $user_id = $row['id'];
+            $query = "INSERT INTO `post`(`user_id`, `post`, `date`) VALUES ('".mysqli_real_escape_string($link, $user_id)."', '".mysqli_real_escape_string($link, $_POST['diaryentry'])."', '".mysqli_real_escape_string($link, $current_date)."')";
+            mysqli_query($link, $query);
+        } else {
+            $message .= "text empty";
+        }
     }
 ?>
 
@@ -38,17 +52,19 @@
                 <ul class="navbar-nav mr-auto">
             
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <!-- <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
-                    <button class="btn btn-primary my-2 my-sm-0"> <?php echo $logout ?></button>
-                </form>
+                    
+                </form> -->
+                <button class="btn btn-primary my-2 my-sm-0"> <?php echo $logout ?></button>
             </div>
         </nav>
         <div class="container">
                 <form method="post">
-                <textarea id="diary"></textarea>
+                <textarea id="diary" name="diaryentry" maxlength="2000"></textarea>
                 <input type="submit" name="submit" value="Enter Log">
+                <div> <?php echo $message ?> </div>
                 </form>
         </div>
 
