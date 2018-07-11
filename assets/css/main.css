@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background: linear-gradient(to right,rgb(10, 115, 235), rgb(103, 191, 223)) no-repeat center center fixed;
 	background-size: cover;  
@@ -59,3 +63,21 @@ textarea{
 .checkbox {
     display: none;
 }
+
+.entry_container{
+    column-count: 4;
+    column-gap: 1em;
+}
+
+.post {
+    /* border: 1px solid black;
+    width: 25%; */
+    display: inline-block;
+    margin: 0 0 1em;
+    width: 100%;
+}
+
+/* .post,
+.post * {
+    display: inline-block !important;
+} */

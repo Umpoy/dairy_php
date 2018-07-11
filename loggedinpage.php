@@ -35,6 +35,8 @@
             $message .= "text sent";
             $query = "INSERT INTO `post`(`user_id`, `post`, `date`) VALUES ('".mysqli_real_escape_string($link, $user_id)."', '".mysqli_real_escape_string($link, $_POST['diaryentry'])."', '".mysqli_real_escape_string($link, $current_date)."')";
             mysqli_query($link, $query);
+            header("Location: loggedinpage.php");
+            unset($_POST);
         } else {
             $message .= "text empty";
         }
@@ -78,15 +80,17 @@
                 <input type="submit" name="submit" value="Enter Log">
                 <div> <?php echo $message ?> </div>
                 </form>
-                <?php 
-                $sql = "SELECT `post` FROM `post` WHERE user_id = $user_id";
-                $result = $link->query($sql);
-                if($result->num_rows > 0){
-                    while($row = $result->fetch_assoc()){
-                        echo "<div>".$row['post']."</div>";
+                <div class="entry_container">
+                    <?php 
+                    $query = "SELECT `post`, `date` FROM `post` WHERE user_id = $user_id";
+                    $result = $link->query($query);
+                    if($result->num_rows > 0){
+                        while($row = $result->fetch_assoc()){
+                            echo "<div class='post'><div><q>".$row['post']."</q></div>"."<p>".$row['date']."</p></div>";
+                        }
                     }
-                }
-                ?>
+                    ?>
+                </div>
         </div>
 
         <!-- Optional JavaScript -->
