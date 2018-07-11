@@ -3,6 +3,9 @@ body {
 	background-size: cover;  
 }
 
+a { color: inherit; } 
+
+
 .container{
     width: 50vw;
     color: white;

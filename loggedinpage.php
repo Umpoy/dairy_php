@@ -5,11 +5,11 @@
         $_SESSION['id'] = $_COOKIE['id'];
     }
     if(array_key_exists("id", $_SESSION)){
-        echo "Logged In! <a href='index.php?logout=1'>Log out</a>";
+        $logout = "<a href='index.php?logout=1'>Log out</a>";
         include("connect.php");
-        $query = "SELECT diary FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
+        $query = "SELECT username FROM `users` WHERE id = ".mysqli_real_escape_string($link, $_SESSION['id'])." LIMIT 1";
         $row = mysqli_fetch_array(mysqli_query($link, $query));
-        $diaryContent = $row['diary'];
+        $usernameContent = $row['username'];
     } else {
         header("Location: index.php");
     }
@@ -28,8 +28,25 @@
         <title>Hello, world!</title>
     </head>
     <body>
+        <nav class="navbar navbar-expand-lg">
+            <div><?php echo  "Hello, ". $usernameContent ?></div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+            
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+                    <button class="btn btn-primary my-2 my-sm-0"> <?php echo $logout ?></button>
+                </form>
+            </div>
+        </nav>
         <div class="container">
-                <textarea id="diary"><?php echo $diaryContent ?></textarea>
+                <textarea id="diary"><?php echo $usernameContent ?></textarea>
         </div>
 
         <!-- Optional JavaScript -->

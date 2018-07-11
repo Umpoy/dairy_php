@@ -83,7 +83,7 @@ if(array_key_exists("submit", $_POST)){
                 <h1 class="animated fadeInDown">Secret Diary</h1>
                 <div id="error"><?php echo $error; ?></div>
 
-                <form method="post" id="logInForm">
+                <form method="post" id="logInForm" class="animated fadeInUp">
                     <fieldset class="form-group">
                     <input class="form-control" type="email" name="email" placeholder="Your Email" required>
                     </fieldset>
@@ -102,7 +102,7 @@ if(array_key_exists("submit", $_POST)){
                     <p>New User? <a class="toggleForms btn">Sign Up!</a></p>
                 </form>
 
-                <form method="post" id="signUpForm">
+                <form method="post" id="signUpForm" class="animated fadeInUp">
                     <fieldset class="form-group">
                         <input class="form-control" type="email" name="email" placeholder="Your Email" required>
                     </fieldset>
