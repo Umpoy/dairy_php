@@ -46,7 +46,10 @@
             </div>
         </nav>
         <div class="container">
-                <textarea id="diary"><?php echo $usernameContent ?></textarea>
+                <form method="post">
+                <textarea id="diary"></textarea>
+                <input type="submit" name="submit" value="Enter Log">
+                </form>
         </div>
 
         <!-- Optional JavaScript -->
