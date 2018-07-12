@@ -45,7 +45,7 @@
 
 <?php include("header.php") ?>
         <nav class="navbar navbar-expand-lg">
-            <div><?php echo  "Hello, ". $usernameContent ?></div>
+            <div class="hello"><?php echo  "Hello, ". $usernameContent ?></div>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -59,7 +59,7 @@
                     <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
                     
                 </form> -->
-                <button class="btn btn-primary my-2 my-sm-0"> <?php echo $logout ?></button>
+                <button class="btn btn-danger my-2 my-sm-0"> <?php echo $logout ?></button>
             </div>
         </nav>
         <div class="container">
@@ -74,7 +74,7 @@
                     $result = $link->query($query);
                     if($result->num_rows > 0){
                         while($row = $result->fetch_assoc()){
-                            echo "<div class='post'><div><q>".$row['post']."</q></div>"."<p>".$row['date']."</p></div>";
+                            echo "<div class='post animated fadeInUp'><div><q>".$row['post']."</q></div>"."<p>".$row['date']."</p></div>";
                         }
                     }
                     ?>
